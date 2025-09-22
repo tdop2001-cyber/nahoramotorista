@@ -1,0 +1,11 @@
+<!-- Ícone "Caixa" - fundo transparente -->
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" role="img" aria-label="Caixa">
+  <title>Caixa</title>
+  <desc>Ícone de caixa aberta, estilo minimalista, fundo transparente</desc>
+
+  <!-- tampa e base da caixa -->
+  <path d="M3 7.5 L12 3 L21 7.5 V16.5 L12 21 L3 16.5 Z" fill="none" stroke="#111827" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"></path>
+
+  <!-- divisória da tampa -->
+  <path d="M3 7.5 L12 12 L21 7.5" fill="none" stroke="#111827" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"></path>
+</svg>

@@ -1,0 +1,11 @@
+<!-- Ícone "Perfil / Usuário" - fundo transparente -->
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" role="img" aria-label="Perfil">
+  <title>Perfil</title>
+  <desc>Ícone de perfil de usuário minimalista, fundo transparente</desc>
+
+  <!-- cabeça -->
+  <circle cx="12" cy="8" r="4" fill="none" stroke="#111827" stroke-width="1.6"></circle>
+
+  <!-- corpo -->
+  <path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="none" stroke="#111827" stroke-width="1.6" stroke-linecap="round"></path>
+</svg>

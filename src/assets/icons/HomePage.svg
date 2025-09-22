@@ -1,0 +1,12 @@
+<!-- Ícone "Home" - fundo transparente -->
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" role="img" aria-label="Início">
+  <title>Início</title>
+  <desc>Ícone de casa para botão de home — fundo transparente</desc>
+
+  <!-- contorno da casa -->
+  <path d="M3 10.5 L12 4 L21 10.5 V20 A1 1 0 0 1 20 21 H4 A1 1 0 0 1 3 20 Z" fill="none" stroke="#111827" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"></path>
+
+  <!-- porta -->
+  <rect x="10" y="13" width="4" height="6" rx="0.6" fill="#111827"></rect>
+
+</svg>
