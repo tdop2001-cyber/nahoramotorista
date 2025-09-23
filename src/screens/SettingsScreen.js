@@ -3,32 +3,52 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Switch } from 're
 import { useTheme } from '../contexts/ThemeContext';
 import SafeAreaWrapper from '../components/SafeAreaWrapper';
 
-const SettingsScreen = () => {
+const SettingsScreen = ({ navigation }) => {
   const { isDarkMode, colors, toggleTheme } = useTheme();
   const themeColors = isDarkMode ? colors.dark : colors.light;
 
   const settingsItems = [
     {
-      title: 'Modo Escuro',
-      subtitle: 'Alternar entre tema claro e escuro',
-      type: 'switch',
-      value: isDarkMode,
-      onPress: toggleTheme,
+      title: 'Dados Pessoais',
+      subtitle: 'Nome, telefone, endereço',
+      type: 'navigate',
+      onPress: () => navigation.navigate('PersonalData'),
+      icon: '👤',
     },
     {
-      title: 'Notificações',
-      subtitle: 'Gerenciar notificações do app',
+      title: 'Veículo',
+      subtitle: 'Informações do seu veículo',
       type: 'navigate',
+      onPress: () => navigation.navigate('Vehicle'),
+      icon: '🚗',
     },
     {
-      title: 'Privacidade',
-      subtitle: 'Configurações de privacidade',
+      title: 'Documentos',
+      subtitle: 'CNH, documentos do veículo',
       type: 'navigate',
+      onPress: () => navigation.navigate('Documents'),
+      icon: '📄',
     },
     {
-      title: 'Sobre',
-      subtitle: 'Informações sobre o app',
+      title: 'Configurações',
+      subtitle: 'Notificações, preferências',
       type: 'navigate',
+      onPress: () => navigation.navigate('AppSettings'),
+      icon: '⚙️',
+    },
+    {
+      title: 'Ajuda e Suporte',
+      subtitle: 'Central de ajuda, contato',
+      type: 'navigate',
+      onPress: () => navigation.navigate('HelpSupport'),
+      icon: '❓',
+    },
+    {
+      title: 'Sair',
+      subtitle: 'Fazer logout da conta',
+      type: 'navigate',
+      onPress: () => navigation.navigate('Logout'),
+      icon: '🚪',
     },
   ];
 
@@ -36,24 +56,17 @@ const SettingsScreen = () => {
     <TouchableOpacity
       key={index}
       style={[styles.settingItem, { backgroundColor: themeColors.surface, borderColor: themeColors.border }]}
-      onPress={item.type === 'navigate' ? item.onPress : undefined}
-      disabled={item.type === 'switch'}
+      onPress={item.onPress}
     >
       <View style={styles.settingContent}>
-        <View>
-          <Text style={[styles.settingTitle, { color: themeColors.text }]}>{item.title}</Text>
-          <Text style={[styles.settingSubtitle, { color: themeColors.textSecondary }]}>{item.subtitle}</Text>
+        <View style={styles.settingLeft}>
+          <Text style={styles.settingIcon}>{item.icon}</Text>
+          <View style={styles.settingText}>
+            <Text style={[styles.settingTitle, { color: themeColors.text }]}>{item.title}</Text>
+            <Text style={[styles.settingSubtitle, { color: themeColors.textSecondary }]}>{item.subtitle}</Text>
+          </View>
         </View>
-        {item.type === 'switch' ? (
-          <Switch
-            value={item.value}
-            onValueChange={item.onPress}
-            trackColor={{ false: themeColors.border, true: themeColors.primary }}
-            thumbColor={item.value ? '#fff' : themeColors.textSecondary}
-          />
-        ) : (
-          <Text style={[styles.arrow, { color: themeColors.textSecondary }]}>›</Text>
-        )}
+        <Text style={[styles.arrow, { color: themeColors.textSecondary }]}>›</Text>
       </View>
     </TouchableOpacity>
   );
@@ -67,13 +80,10 @@ const SettingsScreen = () => {
         
         <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
           <View style={styles.section}>
-            <Text style={[styles.sectionTitle, { color: themeColors.text }]}>Aparência</Text>
-            {renderSettingItem(settingsItems[0], 0)}
-          </View>
-
-          <View style={styles.section}>
-            <Text style={[styles.sectionTitle, { color: themeColors.text }]}>Geral</Text>
-            {settingsItems.slice(1).map((item, index) => renderSettingItem(item, index + 1))}
+            <Text style={[styles.sectionTitle, { color: themeColors.text }]}>
+              Gerencie sua conta e configurações
+            </Text>
+            {settingsItems.map((item, index) => renderSettingItem(item, index))}
           </View>
         </ScrollView>
       </View>
@@ -119,6 +129,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  settingLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  settingIcon: {
+    fontSize: 24,
+    marginRight: 15,
+  },
+  settingText: {
+    flex: 1,
+  },
   settingTitle: {
     fontSize: 16,
     fontWeight: '600',
@@ -135,4 +157,5 @@ const styles = StyleSheet.create({
 });
 
 export default SettingsScreen;
+
 

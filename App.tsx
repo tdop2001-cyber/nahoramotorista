@@ -17,6 +17,12 @@ import { ThemeProvider } from './src/contexts/ThemeContext';
 // Importar telas
 import SplashScreen from './src/screens/SplashScreen';
 import HomeScreen from './src/screens/HomeScreen';
+import PersonalDataScreen from './src/screens/PersonalDataScreen';
+import VehicleScreen from './src/screens/VehicleScreen';
+import DocumentsScreen from './src/screens/DocumentsScreen';
+import AppSettingsScreen from './src/screens/AppSettingsScreen';
+import HelpSupportScreen from './src/screens/HelpSupportScreen';
+import LogoutScreen from './src/screens/LogoutScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -48,6 +54,48 @@ function App() {
             <Stack.Screen 
               name="Home" 
               component={HomeScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen 
+              name="PersonalData" 
+              component={PersonalDataScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen 
+              name="Vehicle" 
+              component={VehicleScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen 
+              name="Documents" 
+              component={DocumentsScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen 
+              name="AppSettings" 
+              component={AppSettingsScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen 
+              name="HelpSupport" 
+              component={HelpSupportScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen 
+              name="Logout" 
+              component={LogoutScreen}
               options={{
                 headerShown: false,
               }}
