@@ -17,6 +17,7 @@ import { ThemeProvider } from './src/contexts/ThemeContext';
 // Importar telas
 import SplashScreen from './src/screens/SplashScreen';
 import HomeScreen from './src/screens/HomeScreen';
+import DeliveryDetailScreen from './src/screens/DeliveryDetailScreen';
 import PersonalDataScreen from './src/screens/PersonalDataScreen';
 import VehicleScreen from './src/screens/VehicleScreen';
 import DocumentsScreen from './src/screens/DocumentsScreen';
@@ -54,6 +55,13 @@ function App() {
             <Stack.Screen 
               name="Home" 
               component={HomeScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen 
+              name="DeliveryDetail" 
+              component={DeliveryDetailScreen}
               options={{
                 headerShown: false,
               }}

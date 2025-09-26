@@ -615,174 +615,119 @@ const DeliveriesScreen = ({ navigation }) => {
 const EarningsScreen = () => {
   const { isDarkMode, colors } = useTheme();
   const themeColors = isDarkMode ? colors.dark : colors.light;
-  const [searchText, setSearchText] = useState('');
-  const [selectedPeriod, setSelectedPeriod] = useState('todos');
-
-  const earnings = [
-    { 
-      id: 1,
-      period: 'Hoje', 
-      amount: 'R$ 89,50', 
-      deliveries: 12,
-      date: '2024-01-15',
-      status: 'completed',
-      details: [
-        { restaurant: 'Pizzaria Bella Vista', amount: 'R$ 15,30', time: '14:30' },
-        { restaurant: 'Burger King', amount: 'R$ 12,50', time: '16:45' },
-        { restaurant: 'McDonald\'s', amount: 'R$ 8,90', time: '18:20' },
-        { restaurant: 'Subway', amount: 'R$ 10,20', time: '19:15' }
-      ]
-    },
-    { 
-      id: 2,
-      period: 'Esta Semana', 
-      amount: 'R$ 456,30', 
-      deliveries: 58,
-      date: '2024-01-08 a 2024-01-14',
-      status: 'completed',
-      details: [
-        { restaurant: 'Pizzaria Bella Vista', amount: 'R$ 89,50', time: 'Segunda' },
-        { restaurant: 'Burger King', amount: 'R$ 78,20', time: 'Terça' },
-        { restaurant: 'McDonald\'s', amount: 'R$ 65,40', time: 'Quarta' }
-      ]
-    },
-    { 
-      id: 3,
-      period: 'Este Mês', 
-      amount: 'R$ 1.234,80', 
-      deliveries: 156,
-      date: 'Janeiro 2024',
-      status: 'completed',
-      details: [
-        { restaurant: 'Pizzaria Bella Vista', amount: 'R$ 456,30', time: 'Semana 1' },
-        { restaurant: 'Burger King', amount: 'R$ 389,20', time: 'Semana 2' },
-        { restaurant: 'McDonald\'s', amount: 'R$ 389,30', time: 'Semana 3' }
-      ]
-    },
-    { 
-      id: 4,
-      period: 'Semana Passada', 
-      amount: 'R$ 389,20', 
-      deliveries: 45,
-      date: '2024-01-01 a 2024-01-07',
-      status: 'completed',
-      details: [
-        { restaurant: 'Pizzaria Bella Vista', amount: 'R$ 156,80', time: 'Segunda' },
-        { restaurant: 'Burger King', amount: 'R$ 98,40', time: 'Terça' },
-        { restaurant: 'McDonald\'s', amount: 'R$ 134,00', time: 'Quarta' }
-      ]
-    },
-    { 
-      id: 5,
-      period: 'Mês Passado', 
-      amount: 'R$ 2.156,90', 
-      deliveries: 234,
-      date: 'Dezembro 2023',
-      status: 'completed',
-      details: [
-        { restaurant: 'Pizzaria Bella Vista', amount: 'R$ 789,50', time: 'Semana 1' },
-        { restaurant: 'Burger King', amount: 'R$ 678,20', time: 'Semana 2' },
-        { restaurant: 'McDonald\'s', amount: 'R$ 689,20', time: 'Semana 3' }
-      ]
-    }
-  ];
+  const [selectedPeriod, setSelectedPeriod] = useState('hoje');
 
   const periods = [
-    { key: 'todos', label: 'Todos' },
-    { key: 'hoje', label: 'Hoje' },
-    { key: 'semana', label: 'Esta Semana' },
-    { key: 'mes', label: 'Este Mês' },
-    { key: 'semana_passada', label: 'Semana Passada' },
-    { key: 'mes_passado', label: 'Mês Passado' }
+    { id: 'hoje', label: 'Hoje' },
+    { id: 'semana', label: 'Semana' },
+    { id: 'mes', label: 'Mês' },
+    { id: 'ano', label: 'Ano' },
   ];
 
-  const getFilteredEarnings = () => {
-    let filtered = earnings;
-
-    // Filtro por período
-    if (selectedPeriod !== 'todos') {
-      filtered = filtered.filter(earning => {
-        switch (selectedPeriod) {
-          case 'hoje':
-            return earning.period === 'Hoje';
-          case 'semana':
-            return earning.period === 'Esta Semana';
-          case 'mes':
-            return earning.period === 'Este Mês';
-          case 'semana_passada':
-            return earning.period === 'Semana Passada';
-          case 'mes_passado':
-            return earning.period === 'Mês Passado';
-          default:
-            return true;
-        }
-      });
+  const ganhosPorPeriodo = {
+    hoje: {
+      total: 'R$ 89,50',
+      entregas: '12',
+      media: 'R$ 7,46',
+      comissao: 'R$ 17,90',
+      detalhes: [
+        { tipo: 'Entrega', valor: 'R$ 6,50', horario: '18:45', cliente: 'João Silva' },
+        { tipo: 'Entrega', valor: 'R$ 8,00', horario: '18:20', cliente: 'Maria Santos' },
+        { tipo: 'Entrega', valor: 'R$ 7,25', horario: '17:50', cliente: 'Pedro Costa' },
+        { tipo: 'Entrega', valor: 'R$ 9,50', horario: '17:30', cliente: 'Ana Lima' },
+        { tipo: 'Entrega', valor: 'R$ 6,75', horario: '16:45', cliente: 'Carlos Oliveira' },
+      ]
+    },
+    semana: {
+      total: 'R$ 456,80',
+      entregas: '67',
+      media: 'R$ 6,81',
+      comissao: 'R$ 91,36',
+      detalhes: [
+        { tipo: 'Segunda-feira', valor: 'R$ 89,50', horario: '12 entregas', cliente: '' },
+        { tipo: 'Terça-feira', valor: 'R$ 76,20', horario: '10 entregas', cliente: '' },
+        { tipo: 'Quarta-feira', valor: 'R$ 94,30', horario: '14 entregas', cliente: '' },
+        { tipo: 'Quinta-feira', valor: 'R$ 67,40', horario: '9 entregas', cliente: '' },
+        { tipo: 'Sexta-feira', valor: 'R$ 129,40', horario: '22 entregas', cliente: '' },
+      ]
+    },
+    mes: {
+      total: 'R$ 1.847,30',
+      entregas: '278',
+      media: 'R$ 6,65',
+      comissao: 'R$ 369,46',
+      detalhes: [
+        { tipo: 'Semana 1', valor: 'R$ 456,80', horario: '67 entregas', cliente: '' },
+        { tipo: 'Semana 2', valor: 'R$ 423,50', horario: '63 entregas', cliente: '' },
+        { tipo: 'Semana 3', valor: 'R$ 512,30', horario: '78 entregas', cliente: '' },
+        { tipo: 'Semana 4', valor: 'R$ 454,70', horario: '70 entregas', cliente: '' },
+      ]
+    },
+    ano: {
+      total: 'R$ 18.950,40',
+      entregas: '2.847',
+      media: 'R$ 6,66',
+      comissao: 'R$ 3.790,08',
+      detalhes: [
+        { tipo: 'Janeiro', valor: 'R$ 1.650,20', horario: '245 entregas', cliente: '' },
+        { tipo: 'Fevereiro', valor: 'R$ 1.423,80', horario: '218 entregas', cliente: '' },
+        { tipo: 'Março', valor: 'R$ 1.847,30', horario: '278 entregas', cliente: '' },
+        { tipo: 'Abril', valor: 'R$ 1.567,90', horario: '232 entregas', cliente: '' },
+        { tipo: 'Maio', valor: 'R$ 1.789,60', horario: '267 entregas', cliente: '' },
+      ]
     }
-
-    // Filtro por busca
-    if (searchText.trim()) {
-      filtered = filtered.filter(earning => 
-        earning.period.toLowerCase().includes(searchText.toLowerCase()) ||
-        earning.amount.toLowerCase().includes(searchText.toLowerCase()) ||
-        earning.deliveries.toString().includes(searchText) ||
-        earning.details.some(detail => 
-          detail.restaurant.toLowerCase().includes(searchText.toLowerCase())
-        )
-      );
-    }
-
-    return filtered;
   };
+
+  const dadosAtuais = ganhosPorPeriodo[selectedPeriod];
+
+  const stats = [
+    { title: 'Ganho Total', value: dadosAtuais.total, status: 'available' },
+    { title: 'Entregas', value: dadosAtuais.entregas, status: 'available' },
+    { title: 'Média/Entrega', value: dadosAtuais.media, status: 'available' },
+    { title: 'Comissão (20%)', value: dadosAtuais.comissao, status: 'busy' },
+  ];
 
   return (
     <SafeAreaWrapper>
-      <View style={[styles.container, { backgroundColor: themeColors.background }]}>
+      <ScrollView style={[styles.container, { backgroundColor: themeColors.background }]}>
+        {/* Header */}
         <View style={[styles.header, { backgroundColor: themeColors.surface, borderBottomColor: themeColors.border }]}>
           <Text style={[styles.headerTitle, { color: themeColors.text }]}>
-            Ganhos
+            💰 Meus Ganhos
           </Text>
           <Text style={[styles.headerSubtitle, { color: themeColors.textSecondary }]}>
-            Acompanhe seus ganhos e pagamentos
+            Acompanhe seus rendimentos
           </Text>
         </View>
 
-        {/* Busca */}
-        <View style={[styles.searchCard, { backgroundColor: themeColors.surface, borderColor: themeColors.border }]}>
-          <TextInput
-            style={[styles.searchInput, { 
-              backgroundColor: themeColors.secondary, 
-              color: themeColors.text 
-            }]}
-            placeholder="Buscar por período, valor, restaurante..."
-            placeholderTextColor={themeColors.textSecondary}
-            value={searchText}
-            onChangeText={setSearchText}
-          />
-        </View>
-
-        {/* Filtros por Período */}
-        <View style={[styles.filtersCard, { backgroundColor: themeColors.surface, borderColor: themeColors.border }]}>
-          <Text style={[styles.filtersTitle, { color: themeColors.textSecondary }]}>
-            Filtrar por Período
+        {/* Filtros de Período */}
+        <View style={styles.filtersSection}>
+          <Text style={[styles.sectionTitle, { color: themeColors.text }]}>
+            Período
           </Text>
           <View style={styles.filtersContainer}>
             {periods.map((period) => (
               <TouchableOpacity
-                key={period.key}
+                key={period.id}
                 style={[
                   styles.filterButton,
-                  selectedPeriod === period.key 
-                    ? [styles.filterButtonActive, { backgroundColor: themeColors.primary }]
-                    : [styles.filterButtonInactive, { borderColor: themeColors.border }]
+                  {
+                    backgroundColor: selectedPeriod === period.id
+                      ? themeColors.primary
+                      : themeColors.surface,
+                    borderColor: selectedPeriod === period.id
+                      ? themeColors.primary
+                      : themeColors.border,
+                  }
                 ]}
-                onPress={() => setSelectedPeriod(period.key)}
+                onPress={() => setSelectedPeriod(period.id)}
               >
                 <Text style={[
-                  styles.filterButtonText,
-                  { 
-                    color: selectedPeriod === period.key 
-                      ? '#ffffff' 
-                      : themeColors.text 
+                  styles.filterText,
+                  {
+                    color: selectedPeriod === period.id
+                      ? themeColors.primaryText
+                      : themeColors.text
                   }
                 ]}>
                   {period.label}
@@ -791,59 +736,93 @@ const EarningsScreen = () => {
             ))}
           </View>
         </View>
-        
-        <ScrollView
-          style={styles.listContainer}
-          contentContainerStyle={{ paddingBottom: 120 }}
-        >
-          {getFilteredEarnings().length > 0 ? (
-            getFilteredEarnings().map((earning, index) => (
-              <View 
-                key={earning.id}
-                style={[styles.earningCard, { backgroundColor: themeColors.surface, borderColor: themeColors.border }]}
+
+        {/* Resumo de Ganhos */}
+        <View style={styles.statsSection}>
+          <Text style={[styles.sectionTitle, { color: themeColors.text }]}>
+            Resumo - {periods.find(p => p.id === selectedPeriod)?.label}
+          </Text>
+          <View style={styles.statsGrid}>
+            {stats.map((stat, index) => (
+              <StatusCard
+                key={index}
+                title={stat.title}
+                value={stat.value}
+                status={stat.status}
+              />
+            ))}
+          </View>
+        </View>
+
+        {/* Detalhes dos Ganhos */}
+        <View style={styles.detailsSection}>
+          <Text style={[styles.sectionTitle, { color: themeColors.text }]}>
+            Detalhamento
+          </Text>
+          <View style={styles.detailsContainer}>
+            {dadosAtuais.detalhes.map((detalhe, index) => (
+              <View
+                key={index}
+                style={[
+                  styles.detailItem,
+                  {
+                    backgroundColor: themeColors.surface,
+                    borderColor: themeColors.border
+                  }
+                ]}
               >
-                <View style={styles.earningHeader}>
-                  <Text style={[styles.earningPeriod, { color: themeColors.text }]}>
-                    {earning.period}
+                <View style={styles.detailHeader}>
+                  <Text style={[styles.detailTipo, { color: themeColors.text }]}>
+                    {detalhe.tipo}
                   </Text>
-                  <Text style={[styles.earningAmount, { color: themeColors.primary }]}>
-                    {earning.amount}
+                  <Text style={[styles.detailValor, { color: themeColors.primary }]}>
+                    {detalhe.valor}
                   </Text>
                 </View>
-                <Text style={[styles.earningDeliveries, { color: themeColors.textSecondary }]}>
-                  {earning.deliveries} entregas
-                </Text>
-                <Text style={[styles.earningDate, { color: themeColors.textSecondary }]}>
-                  {earning.date}
-                </Text>
-                
-                {/* Detalhes dos restaurantes */}
-                <View style={styles.earningDetails}>
-                  {earning.details.map((detail, detailIndex) => (
-                    <View key={detailIndex} style={styles.earningDetailItem}>
-                      <Text style={[styles.earningDetailRestaurant, { color: themeColors.text }]}>
-                        {detail.restaurant}
-                      </Text>
-                      <Text style={[styles.earningDetailAmount, { color: themeColors.primary }]}>
-                        {detail.amount}
-                      </Text>
-                      <Text style={[styles.earningDetailTime, { color: themeColors.textSecondary }]}>
-                        {detail.time}
-                      </Text>
-                    </View>
-                  ))}
+                <View style={styles.detailInfo}>
+                  <Text style={[styles.detailHorario, { color: themeColors.textSecondary }]}>
+                    {detalhe.horario}
+                  </Text>
+                  {detalhe.cliente && (
+                    <Text style={[styles.detailCliente, { color: themeColors.textSecondary }]}>
+                      {detalhe.cliente}
+                    </Text>
+                  )}
                 </View>
               </View>
-            ))
-          ) : (
-            <View style={styles.center}>
-              <Text style={[styles.emptyText, { color: themeColors.textSecondary }]}>
-                Nenhum ganho encontrado
-              </Text>
-            </View>
-          )}
-        </ScrollView>
-      </View>
+            ))}
+          </View>
+        </View>
+
+        {/* Resumo Final */}
+        <View style={[styles.summarySection, { backgroundColor: themeColors.surface, borderColor: themeColors.border }]}>
+          <View style={styles.summaryRow}>
+            <Text style={[styles.summaryLabel, { color: themeColors.text }]}>
+              Ganho Bruto:
+            </Text>
+            <Text style={[styles.summaryValue, { color: themeColors.success }]}>
+              {dadosAtuais.total}
+            </Text>
+          </View>
+          <View style={styles.summaryRow}>
+            <Text style={[styles.summaryLabel, { color: themeColors.text }]}>
+              Comissão (20%):
+            </Text>
+            <Text style={[styles.summaryValue, { color: themeColors.error }]}>
+              -{dadosAtuais.comissao}
+            </Text>
+          </View>
+          <View style={[styles.summaryRow, styles.summaryTotal]}>
+            <Text style={[styles.summaryLabelTotal, { color: themeColors.text }]}>
+              Ganho Líquido:
+            </Text>
+            <Text style={[styles.summaryValueTotal, { color: themeColors.primary }]}>
+              R$ {(parseFloat(dadosAtuais.total.replace('R$ ', '').replace(',', '.')) -
+                   parseFloat(dadosAtuais.comissao.replace('R$ ', '').replace(',', '.'))).toFixed(2).replace('.', ',')}
+            </Text>
+          </View>
+        </View>
+      </ScrollView>
     </SafeAreaWrapper>
   );
 };
@@ -1309,6 +1288,115 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: 16,
     textAlign: 'center',
+  },
+  // Novos estilos para a tela de ganhos
+  filtersSection: {
+    paddingHorizontal: 20,
+    paddingTop: 20,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 16,
+  },
+  filtersContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  filterButton: {
+    flex: 1,
+    paddingVertical: 12,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    borderWidth: 1,
+    marginHorizontal: 4,
+    alignItems: 'center',
+  },
+  filterText: {
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  statsSection: {
+    paddingHorizontal: 20,
+    paddingTop: 20,
+  },
+  statsGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  detailsSection: {
+    paddingHorizontal: 20,
+    paddingTop: 20,
+  },
+  detailsContainer: {
+    marginBottom: 20,
+  },
+  detailItem: {
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 12,
+    borderWidth: 1,
+  },
+  detailHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  detailTipo: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  detailValor: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  detailInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  detailHorario: {
+    fontSize: 14,
+  },
+  detailCliente: {
+    fontSize: 14,
+    fontStyle: 'italic',
+  },
+  summarySection: {
+    marginHorizontal: 20,
+    marginBottom: 30,
+    borderRadius: 12,
+    padding: 20,
+    borderWidth: 1,
+  },
+  summaryRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  summaryTotal: {
+    borderTopWidth: 1,
+    paddingTop: 12,
+    marginTop: 8,
+    borderTopColor: 'rgba(255, 115, 0, 0.3)',
+  },
+  summaryLabel: {
+    fontSize: 16,
+  },
+  summaryValue: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  summaryLabelTotal: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  summaryValueTotal: {
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 });
 
