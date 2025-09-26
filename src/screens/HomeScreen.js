@@ -12,6 +12,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import SafeAreaWrapper from '../components/SafeAreaWrapper';
 import StatusCard from '../components/StatusCard';
 import CustomDock from '../components/CustomDock';
+import SVGIcon from '../components/SVGIcon';
 import DeliveryDetailScreen from './DeliveryDetailScreen';
 import SettingsScreen from './SettingsScreen';
 
@@ -32,10 +33,10 @@ const DriverHomeScreen = ({ navigation }) => {
   };
 
   const stats = [
-    { title: 'Entregas Hoje', value: '12', status: 'available', icon: '📦' },
-    { title: 'Ganhos Hoje', value: 'R$ 89,50', status: 'available', icon: '💰' },
-    { title: 'Avaliação', value: '4.8', status: 'available', icon: '⭐' },
-    { title: 'Tempo Online', value: '6h 30m', status: 'available', icon: '⏰' },
+    { title: 'Entregas Hoje', value: '12', status: 'available', icon: 'box' },
+    { title: 'Ganhos Hoje', value: 'R$ 89,50', status: 'available', icon: 'cifrao' },
+    { title: 'Avaliação', value: '4.8', status: 'available', icon: 'estrela' },
+    { title: 'Tempo Online', value: '6h 30m', status: 'available', icon: 'clock' },
   ];
 
   // Função para obter a cor da faixa lateral baseada no status
@@ -102,7 +103,7 @@ const DriverHomeScreen = ({ navigation }) => {
                     title={stat.title}
                     value={stat.value}
                     status={stat.status}
-                    icon={<Text style={{ fontSize: 16 }}>{stat.icon}</Text>}
+                    icon={<SVGIcon name={stat.icon} size={20} color={themeColors.primary} />}
                   />
                 ))}
               </View>
@@ -115,19 +116,19 @@ const DriverHomeScreen = ({ navigation }) => {
           </Text>
           <View style={styles.actionsGrid}>
             <TouchableOpacity style={[styles.actionButton, { backgroundColor: themeColors.surface, borderColor: themeColors.border }]}>
-              <Text style={[styles.actionIcon, { color: themeColors.primary }]}>📦</Text>
+              <SVGIcon name="box" size={24} color={themeColors.primary} focused={true} />
               <Text style={[styles.actionText, { color: themeColors.text }]}>Ver Entregas</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.actionButton, { backgroundColor: themeColors.surface, borderColor: themeColors.border }]}>
-              <Text style={[styles.actionIcon, { color: themeColors.primary }]}>💰</Text>
+              <SVGIcon name="cifrao" size={24} color={themeColors.primary} focused={true} />
               <Text style={[styles.actionText, { color: themeColors.text }]}>Ganhos</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.actionButton, { backgroundColor: themeColors.surface, borderColor: themeColors.border }]}>
-              <Text style={[styles.actionIcon, { color: themeColors.primary }]}>📍</Text>
+              <SVGIcon name="navegacao" size={24} color={themeColors.primary} focused={true} />
               <Text style={[styles.actionText, { color: themeColors.text }]}>Localização</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.actionButton, { backgroundColor: themeColors.surface, borderColor: themeColors.border }]}>
-              <Text style={[styles.actionIcon, { color: themeColors.primary }]}>⚙️</Text>
+              <SVGIcon name="settings" size={24} color={themeColors.primary} focused={true} />
               <Text style={[styles.actionText, { color: themeColors.text }]}>Configurações</Text>
             </TouchableOpacity>
           </View>
@@ -608,12 +609,124 @@ const DeliveriesScreen = ({ navigation }) => {
 const EarningsScreen = () => {
   const { isDarkMode, colors } = useTheme();
   const themeColors = isDarkMode ? colors.dark : colors.light;
+  const [searchText, setSearchText] = useState('');
+  const [selectedPeriod, setSelectedPeriod] = useState('todos');
 
   const earnings = [
-    { period: 'Hoje', amount: 'R$ 89,50', deliveries: 12 },
-    { period: 'Esta Semana', amount: 'R$ 456,30', deliveries: 58 },
-    { period: 'Este Mês', amount: 'R$ 1.234,80', deliveries: 156 },
+    { 
+      id: 1,
+      period: 'Hoje', 
+      amount: 'R$ 89,50', 
+      deliveries: 12,
+      date: '2024-01-15',
+      status: 'completed',
+      details: [
+        { restaurant: 'Pizzaria Bella Vista', amount: 'R$ 15,30', time: '14:30' },
+        { restaurant: 'Burger King', amount: 'R$ 12,50', time: '16:45' },
+        { restaurant: 'McDonald\'s', amount: 'R$ 8,90', time: '18:20' },
+        { restaurant: 'Subway', amount: 'R$ 10,20', time: '19:15' }
+      ]
+    },
+    { 
+      id: 2,
+      period: 'Esta Semana', 
+      amount: 'R$ 456,30', 
+      deliveries: 58,
+      date: '2024-01-08 a 2024-01-14',
+      status: 'completed',
+      details: [
+        { restaurant: 'Pizzaria Bella Vista', amount: 'R$ 89,50', time: 'Segunda' },
+        { restaurant: 'Burger King', amount: 'R$ 78,20', time: 'Terça' },
+        { restaurant: 'McDonald\'s', amount: 'R$ 65,40', time: 'Quarta' }
+      ]
+    },
+    { 
+      id: 3,
+      period: 'Este Mês', 
+      amount: 'R$ 1.234,80', 
+      deliveries: 156,
+      date: 'Janeiro 2024',
+      status: 'completed',
+      details: [
+        { restaurant: 'Pizzaria Bella Vista', amount: 'R$ 456,30', time: 'Semana 1' },
+        { restaurant: 'Burger King', amount: 'R$ 389,20', time: 'Semana 2' },
+        { restaurant: 'McDonald\'s', amount: 'R$ 389,30', time: 'Semana 3' }
+      ]
+    },
+    { 
+      id: 4,
+      period: 'Semana Passada', 
+      amount: 'R$ 389,20', 
+      deliveries: 45,
+      date: '2024-01-01 a 2024-01-07',
+      status: 'completed',
+      details: [
+        { restaurant: 'Pizzaria Bella Vista', amount: 'R$ 156,80', time: 'Segunda' },
+        { restaurant: 'Burger King', amount: 'R$ 98,40', time: 'Terça' },
+        { restaurant: 'McDonald\'s', amount: 'R$ 134,00', time: 'Quarta' }
+      ]
+    },
+    { 
+      id: 5,
+      period: 'Mês Passado', 
+      amount: 'R$ 2.156,90', 
+      deliveries: 234,
+      date: 'Dezembro 2023',
+      status: 'completed',
+      details: [
+        { restaurant: 'Pizzaria Bella Vista', amount: 'R$ 789,50', time: 'Semana 1' },
+        { restaurant: 'Burger King', amount: 'R$ 678,20', time: 'Semana 2' },
+        { restaurant: 'McDonald\'s', amount: 'R$ 689,20', time: 'Semana 3' }
+      ]
+    }
   ];
+
+  const periods = [
+    { key: 'todos', label: 'Todos' },
+    { key: 'hoje', label: 'Hoje' },
+    { key: 'semana', label: 'Esta Semana' },
+    { key: 'mes', label: 'Este Mês' },
+    { key: 'semana_passada', label: 'Semana Passada' },
+    { key: 'mes_passado', label: 'Mês Passado' }
+  ];
+
+  const getFilteredEarnings = () => {
+    let filtered = earnings;
+
+    // Filtro por período
+    if (selectedPeriod !== 'todos') {
+      filtered = filtered.filter(earning => {
+        switch (selectedPeriod) {
+          case 'hoje':
+            return earning.period === 'Hoje';
+          case 'semana':
+            return earning.period === 'Esta Semana';
+          case 'mes':
+            return earning.period === 'Este Mês';
+          case 'semana_passada':
+            return earning.period === 'Semana Passada';
+          case 'mes_passado':
+            return earning.period === 'Mês Passado';
+          default:
+            return true;
+        }
+      });
+    }
+
+    // Filtro por busca
+    if (searchText.trim()) {
+      filtered = filtered.filter(earning => 
+        earning.period.toLowerCase().includes(searchText.toLowerCase()) ||
+        earning.amount.toLowerCase().includes(searchText.toLowerCase()) ||
+        earning.deliveries.toString().includes(searchText) ||
+        earning.details.some(detail => 
+          detail.restaurant.toLowerCase().includes(searchText.toLowerCase())
+        )
+      );
+    }
+
+    return filtered;
+  };
 
   return (
     <SafeAreaWrapper>
@@ -626,34 +739,113 @@ const EarningsScreen = () => {
             Acompanhe seus ganhos e pagamentos
           </Text>
         </View>
+
+        {/* Busca */}
+        <View style={[styles.searchCard, { backgroundColor: themeColors.surface, borderColor: themeColors.border }]}>
+          <TextInput
+            style={[styles.searchInput, { 
+              backgroundColor: themeColors.secondary, 
+              color: themeColors.text 
+            }]}
+            placeholder="Buscar por período, valor, restaurante..."
+            placeholderTextColor={themeColors.textSecondary}
+            value={searchText}
+            onChangeText={setSearchText}
+          />
+        </View>
+
+        {/* Filtros por Período */}
+        <View style={[styles.filtersCard, { backgroundColor: themeColors.surface, borderColor: themeColors.border }]}>
+          <Text style={[styles.filtersTitle, { color: themeColors.textSecondary }]}>
+            Filtrar por Período
+          </Text>
+          <View style={styles.filtersContainer}>
+            {periods.map((period) => (
+              <TouchableOpacity
+                key={period.key}
+                style={[
+                  styles.filterButton,
+                  selectedPeriod === period.key 
+                    ? [styles.filterButtonActive, { backgroundColor: themeColors.primary }]
+                    : [styles.filterButtonInactive, { borderColor: themeColors.border }]
+                ]}
+                onPress={() => setSelectedPeriod(period.key)}
+              >
+                <Text style={[
+                  styles.filterButtonText,
+                  { 
+                    color: selectedPeriod === period.key 
+                      ? '#ffffff' 
+                      : themeColors.text 
+                  }
+                ]}>
+                  {period.label}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
         
         <ScrollView style={styles.listContainer}>
-          {earnings.map((earning, index) => (
-            <View 
-              key={index}
-              style={[styles.earningCard, { backgroundColor: themeColors.surface, borderColor: themeColors.border }]}
-            >
-              <View style={styles.earningHeader}>
-                <Text style={[styles.earningPeriod, { color: themeColors.text }]}>
-                  {earning.period}
+          {getFilteredEarnings().length > 0 ? (
+            getFilteredEarnings().map((earning, index) => (
+              <View 
+                key={earning.id}
+                style={[styles.earningCard, { backgroundColor: themeColors.surface, borderColor: themeColors.border }]}
+              >
+                <View style={styles.earningHeader}>
+                  <Text style={[styles.earningPeriod, { color: themeColors.text }]}>
+                    {earning.period}
+                  </Text>
+                  <Text style={[styles.earningAmount, { color: themeColors.primary }]}>
+                    {earning.amount}
+                  </Text>
+                </View>
+                <Text style={[styles.earningDeliveries, { color: themeColors.textSecondary }]}>
+                  {earning.deliveries} entregas
                 </Text>
-                <Text style={[styles.earningAmount, { color: themeColors.primary }]}>
-                  {earning.amount}
+                <Text style={[styles.earningDate, { color: themeColors.textSecondary }]}>
+                  {earning.date}
                 </Text>
+                
+                {/* Detalhes dos restaurantes */}
+                <View style={styles.earningDetails}>
+                  {earning.details.map((detail, detailIndex) => (
+                    <View key={detailIndex} style={styles.earningDetailItem}>
+                      <Text style={[styles.earningDetailRestaurant, { color: themeColors.text }]}>
+                        {detail.restaurant}
+                      </Text>
+                      <Text style={[styles.earningDetailAmount, { color: themeColors.primary }]}>
+                        {detail.amount}
+                      </Text>
+                      <Text style={[styles.earningDetailTime, { color: themeColors.textSecondary }]}>
+                        {detail.time}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
               </View>
-              <Text style={[styles.earningDeliveries, { color: themeColors.textSecondary }]}>
-                {earning.deliveries} entregas
+            ))
+          ) : (
+            <View style={styles.center}>
+              <Text style={[styles.emptyText, { color: themeColors.textSecondary }]}>
+                Nenhum ganho encontrado
               </Text>
             </View>
-          ))}
+          )}
         </ScrollView>
       </View>
     </SafeAreaWrapper>
   );
 };
 
-// Tela de Perfil
-const ProfileScreen = () => {
+// Tela de Perfil - Usa a SettingsScreen já existente
+const ProfileScreen = ({ navigation }) => {
+  return <SettingsScreen navigation={navigation} />;
+};
+
+// ProfileScreen original (não usado mais)
+const OriginalProfileScreen = () => {
   const { isDarkMode, colors } = useTheme();
   const themeColors = isDarkMode ? colors.dark : colors.light;
 
@@ -738,31 +930,47 @@ const ProfileScreen = () => {
 };
 
 // Componente principal com navegação customizada
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const { isDarkMode, colors } = useTheme();
   const themeColors = isDarkMode ? colors.dark : colors.light;
   const [currentRoute, setCurrentRoute] = useState('home');
 
+  // Criar um objeto de navegação que combina navegação interna e React Navigation
+  const createNavigationObject = () => ({
+    navigate: (routeName, params) => {
+      // Se for uma rota interna (das abas), usar setCurrentRoute
+      if (['home', 'deliveries', 'earnings', 'profile'].includes(routeName)) {
+        setCurrentRoute(routeName);
+      } else {
+        // Se for uma tela externa, usar React Navigation
+        navigation?.navigate(routeName, params);
+      }
+    },
+    goBack: () => navigation?.goBack(),
+  });
+
+  const navigationObject = createNavigationObject();
+
   const renderCurrentScreen = () => {
     switch (currentRoute) {
       case 'home':
-        return <DriverHomeScreen navigation={{ navigate: setCurrentRoute }} />;
+        return <DriverHomeScreen navigation={navigationObject} />;
       case 'deliveries':
-        return <DeliveriesScreen navigation={{ navigate: setCurrentRoute }} />;
+        return <DeliveriesScreen navigation={navigationObject} />;
       case 'earnings':
-        return <EarningsScreen navigation={{ navigate: setCurrentRoute }} />;
+        return <EarningsScreen navigation={navigationObject} />;
       case 'profile':
-        return <ProfileScreen navigation={{ navigate: setCurrentRoute }} />;
+        return <ProfileScreen navigation={navigationObject} />;
       default:
-        return <DriverHomeScreen navigation={{ navigate: setCurrentRoute }} />;
+        return <DriverHomeScreen navigation={navigationObject} />;
     }
   };
 
   return (
     <View style={styles.container}>
       {renderCurrentScreen()}
-      <CustomDock 
-        navigation={{ navigate: setCurrentRoute }} 
+      <CustomDock
+        navigation={navigationObject}
         currentRoute={currentRoute}
       />
     </View>
@@ -880,6 +1088,7 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
     paddingHorizontal: 16,
+    paddingBottom: 150, // Espaço para o CustomDock (60px + safe area + margem extra)
   },
   searchCard: {
     backgroundColor: '#1a1a1a',
@@ -1000,6 +1209,36 @@ const styles = StyleSheet.create({
   },
   earningDeliveries: {
     fontSize: 14,
+  },
+  earningDate: {
+    fontSize: 12,
+    marginTop: 4,
+  },
+  earningDetails: {
+    marginTop: 12,
+    paddingTop: 12,
+    borderTopWidth: 1,
+    borderTopColor: '#333333',
+  },
+  earningDetailItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 4,
+  },
+  earningDetailRestaurant: {
+    fontSize: 14,
+    flex: 1,
+  },
+  earningDetailAmount: {
+    fontSize: 14,
+    fontWeight: '600',
+    marginHorizontal: 8,
+  },
+  earningDetailTime: {
+    fontSize: 12,
+    minWidth: 60,
+    textAlign: 'right',
   },
   profileOption: {
     backgroundColor: '#1a1a1a',

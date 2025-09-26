@@ -1,0 +1,18 @@
+<!-- Ícone "Entregue" - Troféu de celebração - fundo transparente -->
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" role="img" aria-label="Entregue">
+  <title>Entregue</title>
+  <desc>Ícone de troféu minimalista com fundo transparente</desc>
+
+  <!-- base do troféu -->
+  <rect x="9" y="17" width="6" height="2.5" rx="0.5" fill="none" stroke="#111827" stroke-width="1.6" stroke-linejoin="round"></rect>
+
+  <!-- taça -->
+  <path d="M8 5 H16 V10 C16 13 14 15 12 15 C10 15 8 13 8 10 Z" fill="none" stroke="#111827" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+
+  <!-- alças laterais -->
+  <path d="M8 6 H6 C6 9 7 11 8.5 11" fill="none" stroke="#111827" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M16 6 H18 C18 9 17 11 15.5 11" fill="none" stroke="#111827" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+
+  <!-- detalhe do check dentro da taça -->
+  <path d="M10 10.5 L11.2 12 L14 9.5" fill="none" stroke="#10B981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>

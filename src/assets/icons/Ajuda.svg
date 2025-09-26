@@ -1,0 +1,14 @@
+<!-- Ícone "Ajuda / Interrogação" - fundo transparente -->
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" role="img" aria-label="Ajuda">
+  <title>Ajuda</title>
+  <desc>Ícone de interrogação minimalista, fundo transparente</desc>
+
+  <!-- círculo exterior -->
+  <circle cx="12" cy="12" r="10" fill="none" stroke="#111827" stroke-width="1.6"></circle>
+
+  <!-- ponto da interrogação -->
+  <circle cx="12" cy="17" r="1.2" fill="#111827"></circle>
+
+  <!-- curva da interrogação -->
+  <path d="M12 7 C13.2 7 14 7.8 14 9 C14 10 12 10.5 12 12" fill="none" stroke="#111827" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>

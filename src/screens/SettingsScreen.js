@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Switch } from 'react-native';
 import { useTheme } from '../contexts/ThemeContext';
 import SafeAreaWrapper from '../components/SafeAreaWrapper';
+import SVGIcon from '../components/SVGIcon';
 
 const SettingsScreen = ({ navigation }) => {
   const { isDarkMode, colors, toggleTheme } = useTheme();
@@ -13,42 +14,42 @@ const SettingsScreen = ({ navigation }) => {
       subtitle: 'Nome, telefone, endereço',
       type: 'navigate',
       onPress: () => navigation.navigate('PersonalData'),
-      icon: '👤',
+      icon: 'profile',
     },
     {
       title: 'Veículo',
       subtitle: 'Informações do seu veículo',
       type: 'navigate',
       onPress: () => navigation.navigate('Vehicle'),
-      icon: '🚗',
+      icon: 'moto',
     },
     {
       title: 'Documentos',
       subtitle: 'CNH, documentos do veículo',
       type: 'navigate',
       onPress: () => navigation.navigate('Documents'),
-      icon: '📄',
+      icon: 'documentos',
     },
     {
       title: 'Configurações',
       subtitle: 'Notificações, preferências',
       type: 'navigate',
       onPress: () => navigation.navigate('AppSettings'),
-      icon: '⚙️',
+      icon: 'settings',
     },
     {
       title: 'Ajuda e Suporte',
       subtitle: 'Central de ajuda, contato',
       type: 'navigate',
       onPress: () => navigation.navigate('HelpSupport'),
-      icon: '❓',
+      icon: 'ajuda',
     },
     {
       title: 'Sair',
       subtitle: 'Fazer logout da conta',
       type: 'navigate',
       onPress: () => navigation.navigate('Logout'),
-      icon: '🚪',
+      icon: 'sair',
     },
   ];
 
@@ -60,7 +61,9 @@ const SettingsScreen = ({ navigation }) => {
     >
       <View style={styles.settingContent}>
         <View style={styles.settingLeft}>
-          <Text style={styles.settingIcon}>{item.icon}</Text>
+          <View style={styles.settingIcon}>
+            <SVGIcon name={item.icon} size={24} color={themeColors.primary} focused={true} />
+          </View>
           <View style={styles.settingText}>
             <Text style={[styles.settingTitle, { color: themeColors.text }]}>{item.title}</Text>
             <Text style={[styles.settingSubtitle, { color: themeColors.textSecondary }]}>{item.subtitle}</Text>
@@ -108,6 +111,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     paddingHorizontal: 20,
+    paddingBottom: 150, // Espaço para o CustomDock
   },
   section: {
     marginTop: 20,

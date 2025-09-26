@@ -1,0 +1,15 @@
+<!-- Ícone "Veículo / Moto" - fundo transparente -->
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" role="img" aria-label="Veículo">
+  <title>Veículo</title>
+  <desc>Ícone de moto minimalista, fundo transparente</desc>
+
+  <!-- rodas -->
+  <circle cx="6" cy="17" r="2" fill="none" stroke="#111827" stroke-width="1.6"></circle>
+  <circle cx="18" cy="17" r="2" fill="none" stroke="#111827" stroke-width="1.6"></circle>
+
+  <!-- corpo da moto -->
+  <path d="M6 17h4l2-4h4l2 4h-2" fill="none" stroke="#111827" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+
+  <!-- guidão -->
+  <path d="M14 9h3l1.5 2" fill="none" stroke="#111827" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>

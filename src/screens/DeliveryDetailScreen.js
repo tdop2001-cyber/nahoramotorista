@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { useTheme } from '../contexts/ThemeContext';
 import SafeAreaWrapper from '../components/SafeAreaWrapper';
+import SVGIcon from '../components/SVGIcon';
 
 const DeliveryDetailScreen = ({ navigation, route }) => {
   const { isDarkMode, colors } = useTheme();
@@ -253,7 +254,7 @@ const DeliveryDetailScreen = ({ navigation, route }) => {
     <SafeAreaWrapper>
       <ScrollView 
         style={styles.container}
-        contentContainerStyle={{ paddingBottom: 100, paddingTop: 10 }}
+        contentContainerStyle={{ paddingBottom: 150, paddingTop: 10 }}
         showsVerticalScrollIndicator={false}
       >
         {/* Header */}
@@ -286,7 +287,7 @@ const DeliveryDetailScreen = ({ navigation, route }) => {
             </View>
           </View>
           <Text style={[styles.textSecondary, { marginTop: 8 }]}>
-            ⏰ {deliveryData.time}
+            <SVGIcon name="clock" size={16} color={themeColors.textSecondary} /> {deliveryData.time}
           </Text>
         </View>
 
@@ -308,7 +309,10 @@ const DeliveryDetailScreen = ({ navigation, route }) => {
             </View>
             <View style={[styles.row, { marginBottom: 8 }]}>
               <Text style={[styles.text, { fontWeight: '600', width: 80 }]}>Avaliação:</Text>
-              <Text style={styles.text}>⭐ {deliveryData.restaurantInfo?.rating || 'N/A'}/5.0</Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <SVGIcon name="estrela" size={16} color={themeColors.text} />
+                <Text style={styles.text}> {deliveryData.restaurantInfo?.rating || 'N/A'}/5.0</Text>
+              </View>
             </View>
           </View>
           
@@ -323,7 +327,10 @@ const DeliveryDetailScreen = ({ navigation, route }) => {
             style={[styles.button, styles.buttonSecondary]}
             onPress={handleNavigateToRestaurant}
           >
-            <Text style={styles.buttonSecondaryText}>📍 Navegar para Restaurante</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <SVGIcon name="navegacao" size={16} color={themeColors.primary} />
+              <Text style={styles.buttonSecondaryText}> Navegar para Restaurante</Text>
+            </View>
           </TouchableOpacity>
         </View>
 
@@ -356,7 +363,10 @@ const DeliveryDetailScreen = ({ navigation, route }) => {
             style={[styles.button, styles.buttonSecondary]}
             onPress={handleNavigateToCustomer}
           >
-            <Text style={styles.buttonSecondaryText}>📍 Navegar para Cliente</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <SVGIcon name="navegacao" size={16} color={themeColors.primary} />
+              <Text style={styles.buttonSecondaryText}> Navegar para Cliente</Text>
+            </View>
           </TouchableOpacity>
         </View>
 
@@ -445,7 +455,10 @@ const DeliveryDetailScreen = ({ navigation, route }) => {
                 style={[styles.button, { backgroundColor: '#FF8C00', borderColor: '#FF8C00' }]}
                 onPress={() => updateDeliveryStatus('picked_up', 'Coletado')}
               >
-                <Text style={[styles.buttonText, { color: '#ffffff' }]}>📦 Coletar Pedido</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <SVGIcon name="box" size={16} color="#ffffff" />
+                  <Text style={[styles.buttonText, { color: '#ffffff' }]}> Coletar Pedido</Text>
+                </View>
               </TouchableOpacity>
             )}
             

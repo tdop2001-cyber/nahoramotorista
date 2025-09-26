@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     paddingHorizontal: 20,
+    paddingBottom: 150, // Espaço para o CustomDock
   },
   section: {
     marginTop: 20,

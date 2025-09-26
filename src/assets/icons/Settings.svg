@@ -1,0 +1,8 @@
+<!-- Ícone "Configurações / Engrenagem" - fundo transparente -->
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" role="img" aria-label="Configurações">
+  <title>Configurações</title>
+  <desc>Ícone de engrenagem minimalista, fundo transparente</desc>
+
+  <!-- engrenagem -->
+  <path d="M19.4 13.5c.04-.5.1-1 .1-1.5s-.06-1-.1-1.5l2-1.5a.5.5 0 0 0 .1-.7l-1.9-3.3a.5.5 0 0 0-.6-.2l-2.3 1a6.5 6.5 0 0 0-2.6-1.5l-.3-2.4a.5.5 0 0 0-.5-.4h-3.8a.5.5 0 0 0-.5.4l-.3 2.4a6.5 6.5 0 0 0-2.6 1.5l-2.3-1a.5.5 0 0 0-.6.2L2.4 8.3a.5.5 0 0 0 .1.7l2 1.5c-.04.5-.1 1-.1 1.5s.06 1 .1 1.5l-2 1.5a.5.5 0 0 0-.1.7l1.9 3.3c.14.2.4.3.6.2l2.3-1a6.5 6.5 0 0 0 2.6 1.5l.3 2.4c.03.2.24.4.5.4h3.8c.26 0 .47-.2.5-.4l.3-2.4a6.5 6.5 0 0 0 2.6-1.5l2.3 1c.2.1.5 0 .6-.2l1.9-3.3a.5.5 0 0 0-.1-.7l-2-1.5zM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" fill="none" stroke="#111827" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>

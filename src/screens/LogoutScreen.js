@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useTheme } from '../contexts/ThemeContext';
 import SafeAreaWrapper from '../components/SafeAreaWrapper';
+import SVGIcon from '../components/SVGIcon';
 
 const LogoutScreen = ({ navigation }) => {
   const { isDarkMode, colors } = useTheme();
@@ -59,7 +60,7 @@ const LogoutScreen = ({ navigation }) => {
         
         <View style={styles.content}>
           <View style={styles.logoutContainer}>
-            <Text style={styles.logoutIcon}>🚪</Text>
+            <SVGIcon name="sair" size={48} color={themeColors.primary} />
             <Text style={[styles.logoutTitle, { color: themeColors.text }]}>
               Desconectar da Conta
             </Text>

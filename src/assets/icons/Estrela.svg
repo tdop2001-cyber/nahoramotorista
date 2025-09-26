@@ -1,0 +1,8 @@
+<!-- Ícone "Avaliação / Estrela" - fundo transparente -->
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" role="img" aria-label="Avaliação">
+  <title>Avaliação</title>
+  <desc>Ícone de estrela minimalista, fundo transparente</desc>
+
+  <!-- estrela -->
+  <path d="M12 2.5 L14.8 9 H22 L16.6 13.5 L18.8 20.5 L12 16.5 L5.2 20.5 L7.4 13.5 L2 9 H9.2 L12 2.5 Z" fill="none" stroke="#FBBF24" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"></path>
+</svg>
