@@ -59,7 +59,10 @@ const DriverHomeScreen = ({ navigation }) => {
 
   return (
     <SafeAreaWrapper>
-      <ScrollView style={[styles.container, { backgroundColor: themeColors.background }]}>
+      <ScrollView
+        style={[styles.container, { backgroundColor: themeColors.background }]}
+        contentContainerStyle={{ paddingBottom: 120 }}
+      >
         {/* Header */}
         <View style={[styles.header, { backgroundColor: themeColors.surface, borderBottomColor: themeColors.border }]}>
           <Text style={[styles.headerTitle, { color: themeColors.text }]}>
@@ -538,7 +541,10 @@ const DeliveriesScreen = ({ navigation }) => {
           </View>
         </View>
         
-            <ScrollView style={styles.listContainer}>
+            <ScrollView
+              style={styles.listContainer}
+              contentContainerStyle={{ paddingBottom: 120 }}
+            >
               {getFilteredDeliveries().map((delivery) => {
                 const statusInfo = getStatusInfo(delivery.status);
                 return (
@@ -786,7 +792,10 @@ const EarningsScreen = () => {
           </View>
         </View>
         
-        <ScrollView style={styles.listContainer}>
+        <ScrollView
+          style={styles.listContainer}
+          contentContainerStyle={{ paddingBottom: 120 }}
+        >
           {getFilteredEarnings().length > 0 ? (
             getFilteredEarnings().map((earning, index) => (
               <View 
@@ -900,7 +909,10 @@ const OriginalProfileScreen = () => {
           </Text>
         </View>
         
-        <ScrollView style={styles.listContainer}>
+        <ScrollView
+          style={styles.listContainer}
+          contentContainerStyle={{ paddingBottom: 120 }}
+        >
           {profileOptions.map((option, index) => (
             <TouchableOpacity 
               key={index}
@@ -1066,6 +1078,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     borderWidth: 1,
     borderColor: '#333333',
+    zIndex: 1,
   },
   recentHeader: {
     flexDirection: 'row',
@@ -1088,7 +1101,6 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
     paddingHorizontal: 16,
-    paddingBottom: 150, // Espaço para o CustomDock (60px + safe area + margem extra)
   },
   searchCard: {
     backgroundColor: '#1a1a1a',
@@ -1153,6 +1165,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     borderWidth: 1,
     borderColor: '#333333',
+    zIndex: 1,
   },
   deliveryHeader: {
     flexDirection: 'row',
@@ -1192,6 +1205,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     borderWidth: 1,
     borderColor: '#333333',
+    zIndex: 1,
   },
   earningHeader: {
     flexDirection: 'row',

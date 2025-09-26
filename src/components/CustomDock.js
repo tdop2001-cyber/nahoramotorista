@@ -72,7 +72,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 8,
     borderTopWidth: 0,
-    elevation: 8,
+    elevation: 1000,
+    zIndex: 1000,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
