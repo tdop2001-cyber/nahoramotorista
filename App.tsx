@@ -18,6 +18,7 @@ import { ThemeProvider } from './src/contexts/ThemeContext';
 import SplashScreen from './src/screens/SplashScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import DeliveryDetailScreen from './src/screens/DeliveryDetailScreen';
+import AcceptOrderScreen from './src/screens/AcceptOrderScreen';
 import PersonalDataScreen from './src/screens/PersonalDataScreen';
 import VehicleScreen from './src/screens/VehicleScreen';
 import DocumentsScreen from './src/screens/DocumentsScreen';
@@ -59,15 +60,22 @@ function App() {
                 headerShown: false,
               }}
             />
-            <Stack.Screen 
-              name="DeliveryDetail" 
+            <Stack.Screen
+              name="DeliveryDetail"
               component={DeliveryDetailScreen}
               options={{
                 headerShown: false,
               }}
             />
-            <Stack.Screen 
-              name="PersonalData" 
+            <Stack.Screen
+              name="AcceptOrder"
+              component={AcceptOrderScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="PersonalData"
               component={PersonalDataScreen}
               options={{
                 headerShown: false,

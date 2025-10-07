@@ -78,18 +78,35 @@ const DriverHomeScreen = ({ navigation }) => {
           <Text style={[styles.sectionTitle, { color: themeColors.text }]}>
             Seu Status
           </Text>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={[
-              styles.statusButton, 
-              { 
+              styles.statusButton,
+              {
                 backgroundColor: driverStatus === 'available' ? themeColors.success : themeColors.error,
-                borderColor: themeColors.border 
+                borderColor: themeColors.border
               }
             ]}
             onPress={toggleStatus}
           >
             <Text style={styles.statusButtonText}>
               {driverStatus === 'available' ? '🟢 Disponível' : '🔴 Ocupado'}
+            </Text>
+          </TouchableOpacity>
+
+          {/* Botão de Teste - Simular Novo Pedido */}
+          <TouchableOpacity
+            style={[
+              styles.statusButton,
+              {
+                backgroundColor: '#FF7300',
+                borderColor: themeColors.border,
+                marginTop: 12
+              }
+            ]}
+            onPress={() => navigation.navigate('AcceptOrder')}
+          >
+            <Text style={styles.statusButtonText}>
+              🔔 Simular Novo Pedido (TESTE)
             </Text>
           </TouchableOpacity>
         </View>
