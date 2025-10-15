@@ -50,3 +50,4 @@ git commit -m "Commit inicial do app VaiJaMotoristaApp"
 - `src/components/` - Componentes reutilizáveis
 - `src/assets/icons/` - Ícones SVG
 - `package.json` - Dependências do projeto
+

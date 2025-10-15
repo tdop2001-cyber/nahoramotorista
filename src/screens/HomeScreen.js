@@ -459,9 +459,9 @@ const DeliveriesScreen = ({ navigation }) => {
         {/* Busca */}
         <View style={[styles.searchCard, { backgroundColor: themeColors.surface, borderColor: themeColors.border }]}>
           <TextInput
-            style={[styles.searchInput, { 
-              backgroundColor: themeColors.secondary, 
-              color: themeColors.text 
+            style={[styles.searchInput, {
+              backgroundColor: themeColors.secondary,
+              color: themeColors.text
             }]}
             placeholder="Buscar por restaurante, cliente, endereço ou ID..."
             placeholderTextColor={themeColors.textSecondary}
@@ -470,92 +470,212 @@ const DeliveriesScreen = ({ navigation }) => {
           />
         </View>
 
-        {/* Filtros por Status */}
-        <View style={[styles.filtersCard, { backgroundColor: themeColors.surface, borderColor: themeColors.border }]}>
-          <Text style={[styles.filtersTitle, { color: themeColors.text }]}>
+        {/* Filtros por Status - Estilo Restaurante */}
+        <View style={[styles.filtersCard, { backgroundColor: themeColors.surface, borderColor: themeColors.border, marginBottom: 12, paddingVertical: 12, paddingHorizontal: 16 }]}>
+          <Text style={[styles.text, { fontSize: 14, fontWeight: '700', marginBottom: 12, color: themeColors.text }]}>
             Filtrar por Status
           </Text>
-          <View style={styles.filtersContainer}>
-            <TouchableOpacity
-              style={[
-                styles.filterButton,
-                selectedStatus === 'todos' ? styles.filterButtonActive : styles.filterButtonInactive,
-                { borderColor: themeColors.primary }
-              ]}
-              onPress={() => setSelectedStatus('todos')}
-            >
-              <Text style={[
-                styles.filterButtonText,
-                { color: selectedStatus === 'todos' ? '#ffffff' : themeColors.primary }
-              ]}>
-                Todos
-              </Text>
-            </TouchableOpacity>
-            
-            <TouchableOpacity
-              style={[
-                styles.filterButton,
-                selectedStatus === 'pending' ? { backgroundColor: '#FFD700' } : { backgroundColor: 'transparent' },
-                { borderColor: '#FFD700' }
-              ]}
-              onPress={() => setSelectedStatus('pending')}
-            >
-              <Text style={[
-                styles.filterButtonText,
-                { color: selectedStatus === 'pending' ? '#000000' : '#FFD700' }
-              ]}>
-                Pendente
-              </Text>
-            </TouchableOpacity>
 
-                <TouchableOpacity
-                  style={[
-                    styles.filterButton,
-                    selectedStatus === 'available' ? { backgroundColor: '#007BFF' } : { backgroundColor: 'transparent' },
-                    { borderColor: '#007BFF' }
-                  ]}
-                  onPress={() => setSelectedStatus('available')}
-                >
+          {/* Botão "Todos" destacado */}
+          <TouchableOpacity
+            style={[
+              styles.button,
+              selectedStatus === 'todos' ? {} : styles.buttonSecondary,
+              {
+                paddingVertical: 6,
+                paddingHorizontal: 16,
+                marginBottom: 10,
+                borderRadius: 6,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }
+            ]}
+            onPress={() => setSelectedStatus('todos')}
+          >
+            <View style={styles.row}>
+              <SVGIcon
+                name="box"
+                size={14}
+                color={selectedStatus === 'todos' ? themeColors.primaryText : themeColors.textSecondary}
+                style={{ marginRight: 6 }}
+              />
+              <Text style={[
+                selectedStatus === 'todos' ? styles.buttonText : styles.buttonSecondaryText
+              ]}>
+                Todos ({deliveries.length})
+              </Text>
+            </View>
+          </TouchableOpacity>
+
+          {/* Filtros específicos em scroll horizontal */}
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={{ marginHorizontal: -4 }}
+            contentContainerStyle={{ paddingHorizontal: 4 }}
+          >
+            <View style={styles.row}>
+              {/* Pendente */}
+              <TouchableOpacity
+                style={[
+                  {
+                    paddingVertical: 6,
+                    paddingHorizontal: 14,
+                    marginRight: 8,
+                    borderRadius: 20,
+                    backgroundColor: selectedStatus === 'pending' ? '#FFD700' : 'rgba(255, 215, 0, 0.1)',
+                    borderWidth: 1.5,
+                    borderColor: '#FFD700',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    minWidth: 80
+                  }
+                ]}
+                onPress={() => setSelectedStatus('pending')}
+              >
+                <View style={[styles.row, { alignItems: 'center' }]}>
+                  <SVGIcon
+                    name="clock"
+                    size={14}
+                    color={selectedStatus === 'pending' ? '#000000' : '#FFD700'}
+                    style={{ marginRight: 6 }}
+                  />
                   <Text style={[
-                    styles.filterButtonText,
-                    { color: selectedStatus === 'available' ? '#ffffff' : '#007BFF' }
+                    { textAlign: 'center' },
+                    selectedStatus === 'pending' ? { color: '#000000' } : { color: '#FFD700' }
                   ]}>
-                    Disponível
+                    {deliveries.filter(d => d.status === 'pending').length}
                   </Text>
-                </TouchableOpacity>
+                </View>
+                <Text style={[
+                  { fontSize: 10, fontWeight: '500', textAlign: 'center', marginTop: 2 },
+                  selectedStatus === 'pending' ? { color: '#000000' } : { color: '#FFD700' }
+                ]}>
+                  Pendente
+                </Text>
+              </TouchableOpacity>
 
-            <TouchableOpacity
-              style={[
-                styles.filterButton,
-                selectedStatus === 'picked_up' ? { backgroundColor: '#FF8C00' } : { backgroundColor: 'transparent' },
-                { borderColor: '#FF8C00' }
-              ]}
-              onPress={() => setSelectedStatus('picked_up')}
-            >
-              <Text style={[
-                styles.filterButtonText,
-                { color: selectedStatus === 'picked_up' ? '#ffffff' : '#FF8C00' }
-              ]}>
-                Coletado
-              </Text>
-            </TouchableOpacity>
+              {/* Disponível */}
+              <TouchableOpacity
+                style={[
+                  {
+                    paddingVertical: 6,
+                    paddingHorizontal: 14,
+                    marginRight: 8,
+                    borderRadius: 20,
+                    backgroundColor: selectedStatus === 'available' ? '#2196F3' : 'rgba(33, 150, 243, 0.1)',
+                    borderWidth: 1.5,
+                    borderColor: '#2196F3',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    minWidth: 80
+                  }
+                ]}
+                onPress={() => setSelectedStatus('available')}
+              >
+                <View style={[styles.row, { alignItems: 'center' }]}>
+                  <SVGIcon
+                    name="clock"
+                    size={14}
+                    color={selectedStatus === 'available' ? '#ffffff' : '#2196F3'}
+                    style={{ marginRight: 6 }}
+                  />
+                  <Text style={[
+                    { textAlign: 'center' },
+                    selectedStatus === 'available' ? { color: '#ffffff' } : { color: '#2196F3' }
+                  ]}>
+                    {deliveries.filter(d => d.status === 'available').length}
+                  </Text>
+                </View>
+                <Text style={[
+                  { fontSize: 10, fontWeight: '500', textAlign: 'center', marginTop: 2 },
+                  selectedStatus === 'available' ? { color: '#ffffff' } : { color: '#2196F3' }
+                ]}>
+                  Disponível
+                </Text>
+              </TouchableOpacity>
 
-            <TouchableOpacity
-              style={[
-                styles.filterButton,
-                selectedStatus === 'delivered' ? { backgroundColor: '#1ecb4f' } : { backgroundColor: 'transparent' },
-                { borderColor: '#1ecb4f' }
-              ]}
-              onPress={() => setSelectedStatus('delivered')}
-            >
-              <Text style={[
-                styles.filterButtonText,
-                { color: selectedStatus === 'delivered' ? '#ffffff' : '#1ecb4f' }
-              ]}>
-                Entregue
-              </Text>
-            </TouchableOpacity>
-          </View>
+              {/* Coletado */}
+              <TouchableOpacity
+                style={[
+                  {
+                    paddingVertical: 6,
+                    paddingHorizontal: 14,
+                    marginRight: 8,
+                    borderRadius: 20,
+                    backgroundColor: selectedStatus === 'picked_up' ? '#FF8C00' : 'rgba(255, 140, 0, 0.1)',
+                    borderWidth: 1.5,
+                    borderColor: '#FF8C00',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    minWidth: 80
+                  }
+                ]}
+                onPress={() => setSelectedStatus('picked_up')}
+              >
+                <View style={[styles.row, { alignItems: 'center' }]}>
+                  <SVGIcon
+                    name="box"
+                    size={14}
+                    color={selectedStatus === 'picked_up' ? '#ffffff' : '#FF8C00'}
+                    style={{ marginRight: 6 }}
+                  />
+                  <Text style={[
+                    { textAlign: 'center' },
+                    selectedStatus === 'picked_up' ? { color: '#ffffff' } : { color: '#FF8C00' }
+                  ]}>
+                    {deliveries.filter(d => d.status === 'picked_up').length}
+                  </Text>
+                </View>
+                <Text style={[
+                  { fontSize: 10, fontWeight: '500', textAlign: 'center', marginTop: 2 },
+                  selectedStatus === 'picked_up' ? { color: '#ffffff' } : { color: '#FF8C00' }
+                ]}>
+                  Coletado
+                </Text>
+              </TouchableOpacity>
+
+              {/* Entregue */}
+              <TouchableOpacity
+                style={[
+                  {
+                    paddingVertical: 6,
+                    paddingHorizontal: 14,
+                    marginRight: 8,
+                    borderRadius: 20,
+                    backgroundColor: selectedStatus === 'delivered' ? '#1ecb4f' : 'rgba(30, 203, 79, 0.1)',
+                    borderWidth: 1.5,
+                    borderColor: '#1ecb4f',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    minWidth: 80
+                  }
+                ]}
+                onPress={() => setSelectedStatus('delivered')}
+              >
+                <View style={[styles.row, { alignItems: 'center' }]}>
+                  <SVGIcon
+                    name="estrela"
+                    size={14}
+                    color={selectedStatus === 'delivered' ? '#000000' : '#1ecb4f'}
+                    style={{ marginRight: 6 }}
+                  />
+                  <Text style={[
+                    { textAlign: 'center' },
+                    selectedStatus === 'delivered' ? { color: '#000000' } : { color: '#1ecb4f' }
+                  ]}>
+                    {deliveries.filter(d => d.status === 'delivered').length}
+                  </Text>
+                </View>
+                <Text style={[
+                  { fontSize: 10, fontWeight: '500', textAlign: 'center', marginTop: 2 },
+                  selectedStatus === 'delivered' ? { color: '#000000' } : { color: '#1ecb4f' }
+                ]}>
+                  Entregue
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
         </View>
         
             <ScrollView
@@ -1414,6 +1534,59 @@ const styles = StyleSheet.create({
   summaryValueTotal: {
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  // Novos estilos para filtros estilo restaurante
+  statusFilterButton: {
+    paddingVertical: 6,
+    paddingHorizontal: 14,
+    marginRight: 8,
+    borderRadius: 20,
+    borderWidth: 1.5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    minWidth: 80,
+  },
+  statusFilterLabel: {
+    fontSize: 10,
+    fontWeight: '500',
+    textAlign: 'center',
+    marginTop: 2,
+  },
+  // Estilos auxiliares
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  text: {
+    color: '#ffffff',
+    fontSize: 14,
+  },
+  button: {
+    backgroundColor: '#FF7300',
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderWidth: 1,
+    borderColor: '#FF7300',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: '#ffffff',
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  buttonSecondary: {
+    backgroundColor: 'transparent',
+    borderColor: '#666666',
+  },
+  buttonSecondaryText: {
+    color: '#999999',
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  spaceBetween: {
+    justifyContent: 'space-between',
   },
 });
 
